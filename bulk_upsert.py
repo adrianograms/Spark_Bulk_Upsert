@@ -211,27 +211,3 @@ def crud_database_table(spark, sql_old, sql_new, table_name, key_columns, connec
 
     df_new.unpersist()
     df_old.unpersist()
-
-
-user_dw = os.getenv('USER_DW')
-password_dw = os.getenv('PASSWORD_DW')
-host_dw = os.getenv('HOST_DW')
-database_dw = os.getenv('DATABASE_DW')
-port_dw = os.getenv('PORT_DW')
-driver = os.getenv('DRIVER_JDBC_POSTGRES')
-path_jdbc = os.getenv('PATH_JDBC_POSTGRES')
-
-connection_properties = {'db_name':database_dw, 'user':user_dw, 'password':password_dw, 'host':host_dw, 'port':port_dw, 'driver': driver}
-
-spark = SparkSession\
-    .builder\
-    .appName("Extraction_Data")\
-    .config("spark.driver.extraClassPath", path_jdbc)\
-    .getOrCreate()
-
-sql_new_eixos = 'select distinct id as nk_eixos, descricao from stg_projeto_investimento_eixos'
-sql_old_eixos = 'select nk_eixos, descricao from dim_eixos de'
-table_name_eixos = 'public.dim_eixos'
-key_columns_eixos = ['nk_eixos']
-bulk_size = 500
-crud_database_table(spark, sql_old_eixos, sql_new_eixos, table_name_eixos, key_columns_eixos, connection_properties, bulk_size)

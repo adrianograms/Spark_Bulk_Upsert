@@ -7,7 +7,7 @@
 A python library to facilitate upsert operations on all kinds of databases using a bulking approach for better performance. It leverages ```Apache Spark``` for data extraction, manipulation and comparison, while using ```psycopg2``` for the upsert process on the database.
 
 
-<h2 align="left">Example</h2>
+<h2 align="left">Example of use</h2>
 
 ```python
 connection_properties = {'db_name':database_dw, 'user':user_dw, 'password':password_dw, 'host':host_dw, 'port':port_dw, 'driver': driver}
